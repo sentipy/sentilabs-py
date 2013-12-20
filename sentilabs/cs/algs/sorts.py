@@ -1,4 +1,8 @@
-def quick_sort_3way(arr, left, right):
+def quick_sort_3way(arr):
+    quick_sort_3wayEx(arr, 0, len(arr) - 1)
+
+
+def quick_sort_3wayEx(arr, left, right):
     def get_pivot_index():
         if right - left < 2:
             return left
@@ -35,6 +39,40 @@ def quick_sort_3way(arr, left, right):
             cur_right -= 1
         else:
             i += 1
-    quick_sort_3way(arr, left, cur_left - 1)
-    quick_sort_3way(arr, cur_right + 1, right)
+    quick_sort_3wayEx(arr, left, cur_left - 1)
+    quick_sort_3wayEx(arr, cur_right + 1, right)
 
+
+def mergeSort(arr):
+    mergeSortEx(arr, 0, len(arr) - 1)
+
+
+def mergeSortEx(arr, left, right):
+
+    def merge(arr1, arr2):
+        newArr = list()
+        i1 = 0
+        i2 = 0
+        len1 = len(arr1)
+        len2 = len(arr2)
+        while i1 < len1 and i2 < len2:
+            if arr1[i1] < arr2[i2]:
+                newArr.append(arr1[i1])
+                i1 += 1
+            else:
+                newArr.append(arr2[i2])
+                i2 += 1
+        while i1 < len1:
+            newArr.append(arr1[i1])
+            i1 += 1
+        while i2 < len2:
+            newArr.append(arr2[i2])
+            i2 += 1
+        return newArr
+
+    if left >= right:
+        return
+    middle = (left + right)//2
+    mergeSortEx(arr, left, middle)
+    mergeSortEx(arr, middle + 1, right)
+    arr[left:right + 1] = merge(arr[left:middle + 1], arr[middle + 1: right + 1])
